@@ -1,12 +1,15 @@
 import React from "react";
 
 const Characters = ({ data }: any) => {
+  console.log(data, "data");
   return (
     <div>
-      <h2 className="text-center">List of characters</h2>
-      <ul>
-        {data.map((e: any) => (
-          <li key={e.exampleId}>{e.exampleName}</li>
+      <h2 className="text-center mt-6">List of characters</h2>
+      <ul className="p-10 text-centers">
+        {data.data.map((e: any) => (
+          <li key={e.userID}>
+            {e?.userID}.{e.userName}
+          </li>
         ))}
       </ul>
     </div>
@@ -15,7 +18,7 @@ const Characters = ({ data }: any) => {
 
 export async function getStaticProps(context: any) {
   const res = await fetch(
-    "http://localhost:8080/example"
+    "https://drab-shorts-moth.cyclic.app/"
     // headers: {
     //   credentials: "include",
     //   Authorization: token,
