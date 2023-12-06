@@ -19,10 +19,8 @@ const Todos = ({ data }: any) => {
 };
 
 export async function getServerSideProps(context: any) {
-  console.log(context?.query?.token, "context");
   const cookies = parseCookies(context);
   const token = cookies.token || null;
-  console.log(token, "server-token");
   const res = await fetch(
     `https://jsonplaceholder.typicode.com/todos`
     // headers: {

@@ -10,7 +10,6 @@ Static Site Generation (SSG) is another rendering technique in Next.js. It gener
 import React from "react";
 
 const Characters = ({ data }: any) => {
-  console.log(data, "data");
   return (
     <div>
       <h2 className="text-center mt-6">List of characters</h2>
@@ -47,3 +46,14 @@ export default Characters;
 3.**Fetching Data**: The fetch function is used to retrieve data from the specified API endpoint (https://drab-shorts-moth.cyclic.app/). The fetched data is then converted to JSON.
 
 4.**Props and Revalidation**: The fetched data is returned as props to the Characters component. Additionally, the revalidate option is set to 10 seconds, indicating that the page should be revalidated and rebuilt every 10 seconds. Which is also known as <a href="https://nextjs.org/docs/pages/building-your-application/data-fetching/incremental-static-regeneration" target="_blank">Incremental Static Regeneration</a>
+
+## When does getStaticProps run:
+
+- getStaticProps always runs during next build
+- getStaticProps runs on-demand in the background when using revalidate()
+
+## Where can I use getStaticProps
+
+- getStaticProps can only be exported from a page. You cannot export it from non-page files, \_app, \_document, or \_error.
+
+- One of the reasons for this restriction is that React needs to have all the required data before the page is rendered.

@@ -6,7 +6,6 @@ import { setCookie } from "nookies";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  // console.log("router", router);
   const appToken = router?.query?.token as string;
 
   useEffect(() => {
