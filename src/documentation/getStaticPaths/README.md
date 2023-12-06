@@ -20,20 +20,23 @@ const CharacterDetail = ({ characterSlug }: any) => {
   );
 };
 
-export async function getStaticProps({ params }: any) {
+export async function getStaticProps(context: any) {
+  const id = context.params.userID;
   const res = await fetch(
-    `https://drab-shorts-moth.cyclic.app/userDetail/?id=${params.userID}`
+    `https://drab-shorts-moth.cyclic.app/userDetail/?id=${id}`
   );
-  const characterSlug = await res.json();
-  return { props: { characterSlug } };
+  const data = await res.json();
+  return { props: { characterSlug: data.data[0] } };
 }
 
 export async function getStaticPaths() {
   const res = await fetch("https://drab-shorts-moth.cyclic.app");
   const data = await res.json();
-  const userIDs = data?.data;
+  const users = data?.data;
 
-  const paths = userIDs.map((userID: string) => ({ params: { userID } }));
+  const paths = users.map((user: any) => {
+    return { params: { userID: user?._id.toString() } };
+  });
 
   return { paths, fallback: false };
 }
