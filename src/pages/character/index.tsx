@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Characters = ({ data }: any) => {
@@ -7,9 +8,11 @@ const Characters = ({ data }: any) => {
       <h2 className="text-center mt-6">List of characters</h2>
       <ul className="p-10 text-centers">
         {data.data.map((e: any) => (
-          <li key={e.userID}>
-            {e?.userID}.{e.userName}
-          </li>
+          <Link href={`/character/${e._id}`} key={e.userID}>
+            <li>
+              {e?.userID}.{e.userName}
+            </li>
+          </Link>
         ))}
       </ul>
     </div>
@@ -17,13 +20,7 @@ const Characters = ({ data }: any) => {
 };
 
 export async function getStaticProps(context: any) {
-  const res = await fetch(
-    "https://drab-shorts-moth.cyclic.app/"
-    // headers: {
-    //   credentials: "include",
-    //   Authorization: token,
-    // },
-  );
+  const res = await fetch("https://drab-shorts-moth.cyclic.app/");
 
   const data = await res.json();
   return { props: { data }, revalidate: 3 };
